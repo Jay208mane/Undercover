@@ -152,9 +152,6 @@ function RoomLobbyScreen({ game, onLeave }: { game: ReturnType<typeof useOnlineG
   const { roomState, playerId, isHost, roomCode } = game;
   if (!roomState) return null;
 
-  const myPlayer = roomState.players.find((p) => p.id === playerId);
-  const isReady = false; // tracked locally — could extend if needed
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100dvh' }}>
       <AppHeader title="Room" showBack={false} right={

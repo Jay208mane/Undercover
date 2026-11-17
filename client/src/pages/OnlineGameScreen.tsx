@@ -237,7 +237,7 @@ function OnlineVoting({ game }: { game: GameProp }) {
 // ── Elimination result ────────────────────────────────────────────────────────
 
 function OnlineEliminationResult({ game }: { game: GameProp }) {
-  const { lastElimination, isHost, roomState } = game;
+  const { lastElimination, isHost } = game;
   if (!lastElimination) return null;
 
   const roleColor = lastElimination.revealedRole === 'CIVILIAN' ? 'var(--color-success)' : lastElimination.revealedRole === 'IMPOSTER' ? 'var(--color-danger)' : 'var(--color-accent-soft)';
@@ -305,7 +305,7 @@ function OnlineMrWhiteGuess({ game }: { game: GameProp }) {
 
 function OnlineGameOver({ game }: { game: GameProp }) {
   const navigate = useNavigate();
-  const { roomState, gameResults, civilianWord } = game;
+  const { roomState, gameResults, civilianWord, leaveRoom } = game;
   if (!roomState?.winnerFaction) return null;
 
   const winnerColor = roomState.winnerFaction === 'CIVILIANS' ? 'var(--color-success)' : roomState.winnerFaction === 'MR_WHITE' ? 'var(--color-accent-soft)' : 'var(--color-danger)';
@@ -355,8 +355,8 @@ function OnlineGameOver({ game }: { game: GameProp }) {
           </div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
-          <PrimaryButton fullWidth onClick={() => { game.leaveRoom(); navigate('/play/online'); }}>Play Again</PrimaryButton>
-          <SecondaryButton fullWidth onClick={() => { game.leaveRoom(); navigate('/'); }}>Return Home</SecondaryButton>
+          <PrimaryButton fullWidth onClick={() => { leaveRoom(); navigate('/play/online'); }}>Play Again</PrimaryButton>
+          <SecondaryButton fullWidth onClick={() => { leaveRoom(); navigate('/'); }}>Return Home</SecondaryButton>
         </div>
       </div>
     </div>
@@ -365,7 +365,7 @@ function OnlineGameOver({ game }: { game: GameProp }) {
 
 // ── Disconnected ──────────────────────────────────────────────────────────────
 
-function OnlineDisconnected({ game }: { game: GameProp }) {
+function OnlineDisconnected({ game: _game }: { game: GameProp }) {
   const navigate = useNavigate();
   return (
     <div style={{ ...fullCenter, padding: '1.5rem', gap: '1.5rem', maxWidth: '380px', margin: '0 auto', width: '100%' }}>

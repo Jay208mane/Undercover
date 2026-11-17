@@ -1,4 +1,4 @@
-import type { Language } from '../../../shared/types';
+import type { Language } from '../../../../shared/types';
 
 export type OnlinePhase =
   | 'LOBBY'
